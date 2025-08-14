@@ -20,17 +20,17 @@ COPY *.go ./
 # Build the binary
 ENV CGO_ENABLED=0
 RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build \
-    -ldflags="-s -w -X main.version=${VERSION}" \
-    -o /go/bin/unbound_exporter .
+  -ldflags="-s -w -X main.version=${VERSION}" \
+  -o /go/bin/unbound_exporter .
 
 # Final stage
 FROM gcr.io/distroless/static-debian12
 
 # Add metadata
 LABEL org.opencontainers.image.title="Unbound Exporter" \
-      org.opencontainers.image.description="Prometheus exporter for Unbound DNS resolver" \
-      org.opencontainers.image.source="https://github.com/letsencrypt/unbound_exporter" \
-      org.opencontainers.image.licenses="Apache-2.0"
+  org.opencontainers.image.description="Prometheus exporter for Unbound DNS resolver" \
+  org.opencontainers.image.source="https://github.com/letsencrypt/unbound_exporter" \
+  org.opencontainers.image.licenses="Apache-2.0"
 
 # Copy the binary from build stage
 COPY --from=build /go/bin/unbound_exporter /
@@ -38,7 +38,7 @@ COPY --from=build /go/bin/unbound_exporter /
 # Expose metrics port
 EXPOSE 9167
 
-# Run as non-root user
-USER nonroot:nonroot
+# Note: Running as root to access Unix sockets
+# USER nonroot:nonroot
 
 ENTRYPOINT ["/unbound_exporter"]
