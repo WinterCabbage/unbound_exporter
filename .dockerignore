@@ -1,0 +1,41 @@
+# Git files
+.git
+.gitignore
+
+# GitHub
+.github/
+
+# Documentation
+README.md
+LICENSE
+
+# Test files
+*_test.go
+integration_test.go
+
+# Build artifacts
+unbound_exporter
+*.deb
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Config examples
+unbound-example.conf
+droplist.zone
+
+# Package config
+nfpm.yaml
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db

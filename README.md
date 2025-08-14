@@ -15,10 +15,22 @@ Go 1.20 or above is required.
 
 # Installation
 
+## Using Go
+
     go install github.com/letsencrypt/unbound_exporter@latest
 
 This will install the binary in `$GOBIN`, or `$HOME/go/bin` if
 `$GOBIN` is unset.
+
+## Using Docker
+
+Pre-built Docker images are available on GitHub Container Registry:
+
+    docker pull ghcr.io/wintercabbage/unbound_exporter:latest
+
+Or for a specific version:
+
+    docker pull ghcr.io/wintercabbage/unbound_exporter:v1.0.0
 
 # Updating dependencies
 
@@ -45,6 +57,17 @@ Metrics will be exported under /metrics, on port 9167, on all interfaces.
 
     $ curl 127.0.0.1:9167/metrics | grep '^unbound_up'
     unbound_up 1
+
+## Docker Usage - Unix socket
+
+To run the exporter using Docker with a Unix socket:
+
+    docker run -d \
+      --name unbound-exporter \
+      -p 9167:9167 \
+      -v /run/unbound.ctl:/run/unbound.ctl:ro \
+      ghcr.io/wintercabbage/unbound_exporter:latest \
+      -unbound.ca "" -unbound.cert "" -unbound.host "unix:///run/unbound.ctl"
 
 # Usage - TLS
 

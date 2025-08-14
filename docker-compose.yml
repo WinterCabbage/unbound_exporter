@@ -1,5 +1,7 @@
 services:
   unbound_exporter:
+    # Use the published image or build locally
+    # image: ghcr.io/wintercabbage/unbound_exporter:latest
     build: .
     command: [ "-unbound.host=unix:///var/run/socket/unbound.ctl" ]
     volumes:
